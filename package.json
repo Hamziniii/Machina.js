@@ -1,5 +1,5 @@
 {
-  "name": "machina",
+  "name": "machina.js",
   "version": "1.0.0",
   "description": "A wrapper for Discord.js to make your experience better and easier with typescript",
   "main": "machina.js",
