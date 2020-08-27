@@ -1,0 +1,25 @@
+{
+  "name": "machina",
+  "version": "1.0.0",
+  "description": "A wrapper for Discord.js to make your experience better and easier with typescript",
+  "main": "machina.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord.js"
+  ],
+  "author": "Hamziniii",
+  "license": "ISC",
+  "dependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^14.6.0",
+    "@types/word-wrap": "^1.2.1",
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0",
+    "word-wrap": "^1.2.3"
+  }
+}
