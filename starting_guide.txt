@@ -1,5 +1,6 @@
 Look in the examples folder if you like examples.
 Everything covered here can be seen in that folder. 
+NOTE: your imports wont have the same file paths, but they will have the same variables
 
 To use this framework you must have Typescript installed
 (it would be best if you installed typescript node dev, its basically nodemon for typescript)
