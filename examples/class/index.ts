@@ -8,7 +8,7 @@ const Bot = new Machina(process.env["TOKEN"], "# ", {name: "Hamziniii", icon: "h
 
 // First I am extracting the the classes (essentially a glorified require, but you can do multiple files or an entire dir. You can also blacklist files)
 // NOTE: Use loadCommands if you are doing commands and not classes 
-Bot.loadClasses(extractClasses("file", "machina/examples/class/general.ts"))
+Bot.loadClasses(extractClasses("file", "node_modules/machina/examples/class/general.ts"))
 // This is where it starts the bot. If you want to start some other things, you can put a function inside. This is useful if you have mongo or something.
 Bot.initizalize(() => {
     // Mongo or anything else that needs to be started here
