@@ -8,9 +8,8 @@ To use this framework you must have Typescript installed
 
 First, create a file that is going to be the starting of your project.
 In that file:
-    import Machina from machina.ts 
-    import extractClasses from machinaUtility
-    import arrify from machinaUtility (optional, but recommended)
+    import Machinam extractClasses from machina.ts 
+    import arrify from machina.ts (optional, but recommended)
 
     import dotenv and run the config function (optional, but recommended if you are about token safety)
 
