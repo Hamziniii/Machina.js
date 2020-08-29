@@ -12,6 +12,6 @@ I would highly recommend looking at the example folder because it gives a genera
 
 ## Decorator (class) vs No decorators
 There are two methods of using this: decorators or no decorators. 
-For decorators you need to use javascript classes with typescript decorators. (Make sure you enable expermental decorators for ts)
+For decorators you need to use javascript classes with typescript decorators. (Make sure you enable expermental decorators for ts)<br>
 There is nothing more you need to do if you don't want to use decorators. 
 There also is nothing stoping you from using both. 
