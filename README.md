@@ -8,6 +8,7 @@ To get started, make sure you have typescript.
 I would recommend getting the cli tool [Typescript Node Dev](https://www.npmjs.com/package/ts-node-dev).
 This tool is like nodemon, but for ts and it doesnt output js. 
 If you want some project examples, go into the example folder. 
+I would highly recommend looking at the example folder because it gives a general outline of what you should do. 
 
 ## Decorator (class) vs No decorators
 There are two methods of using this: decorators or no decorators. 
