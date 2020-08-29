@@ -1,6 +1,7 @@
 # Machina.ts
 My discord.js wrapper 
-[npm](https://www.npmjs.com/package/machina.ts)    [github](https://github.com/Hamziniii/machina.ts)
+[npm](https://www.npmjs.com/package/machina.ts)    
+[github](https://github.com/Hamziniii/machina.ts)
 
 ## Start
 To get started, make sure you have typescript.
