@@ -1,5 +1,6 @@
 # Machina.ts
 My discord.js wrapper 
+[npm](https://www.npmjs.com/package/machina.ts)    [github](https://github.com/Hamziniii/machina.ts)
 
 ## Start
 To get started, make sure you have typescript.
@@ -12,6 +13,3 @@ There are two methods of using this: decorators or no decorators.
 For decorators you need to use javascript classes with typescript decorators. (Make sure you enable expermental decorators for ts)
 There is nothing more you need to do if you don't want to use decorators. 
 There also is nothing stoping you from using both. 
-
-[npm](https://www.npmjs.com/package/machina.ts)    
-[github](https://github.com/Hamziniii/machina.ts)
