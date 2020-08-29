@@ -1,8 +1,17 @@
 # Machina.ts
 My discord.js wrapper 
 
-you should get it on npm :)
-look at starting guide and examples for help
+## Start
+To get started, make sure you have typescript.
+I would recommend getting the cli tool [Typescript Node Dev](https://www.npmjs.com/package/ts-node-dev).
+This tool is like nodemon, but for ts and it doesnt output js. 
+If you want some project examples, go into the example folder. 
+
+## Decorator (class) vs No decorators
+There are two methods of using this: decorators or no decorators. 
+For decorators you need to use javascript classes with typescript decorators. (Make sure you enable expermental decorators for ts)
+There is nothing more you need to do if you don't want to use decorators. 
+There also is nothing stoping you from using both. 
 
 [npm](https://www.npmjs.com/package/machina.ts)    
 [github](https://github.com/Hamziniii/machina.ts)
