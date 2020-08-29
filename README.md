@@ -1,5 +1,5 @@
 # Machina.ts
-My discord.js wrapper
+My discord.js wrapper<br>
 [npm](https://www.npmjs.com/package/machina.ts)    
 [github](https://github.com/Hamziniii/machina.ts)
 
