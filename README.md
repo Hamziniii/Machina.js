@@ -14,4 +14,5 @@ I would highly recommend looking at the example folder because it gives a genera
 There are two methods of using this: decorators or no decorators. 
 For decorators you need to use javascript classes with typescript decorators. (Make sure you enable expermental decorators for ts)<br>
 There is nothing more you need to do if you don't want to use decorators. 
-There also is nothing stoping you from using both. 
+There also is nothing stoping you from using both.<br>
+If you decide to use decorators make sure to put "experimentalDecorators": true in your tsconfig.json file. If you don't know what a tsconfig.json file is, just copy the one here. 
