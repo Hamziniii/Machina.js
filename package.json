@@ -1,6 +1,6 @@
 {
   "name": "machina.ts",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "A wrapper for Discord.js to make your experience better and easier with typescript",
   "main": "js/exports.js",
   "directories": {
