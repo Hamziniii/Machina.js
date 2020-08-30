@@ -36,7 +36,7 @@ exports.singleOut = (thing) => thing.length == 1 ? thing[0] : thing;
  * @param path  the path to the things
  * @param ignore  if you are importing a dir, this is the blacklist
  */
-exports.extractClasses = (type, path, ignore) => {
+exports.extractClasses = (type, path, ignore = "") => {
     const returning = [];
     const base = "../../" + (type == "dir" ? path + "/" : "");
     switch (type) {

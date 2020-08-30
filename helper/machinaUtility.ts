@@ -40,7 +40,7 @@ export const singleOut = <T>(thing: T[]) => thing.length == 1 ? thing[0] : thing
  * @param path  the path to the things 
  * @param ignore  if you are importing a dir, this is the blacklist 
  */
-export const extractClasses = (type: "file" | "files" | "dir", path: string | string[], ignore?: string | string[]) => {
+export const extractClasses = (type: "file" | "files" | "dir", path: string | string[], ignore = "" as string | string[]) => {
     const returning = []
     const base = "../../" + (type == "dir" ? path + "/" : "")
     switch(type) {
