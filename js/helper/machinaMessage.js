@@ -1,5 +1,8 @@
-import { MessageEmbed } from "discord.js";
-export class MachinaMessage {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MachinaMessage = void 0;
+const discord_js_1 = require("discord.js");
+class MachinaMessage {
     /**
      * Creates a MachinaMessage!
      * @param data The message data
@@ -23,7 +26,7 @@ export class MachinaMessage {
          * Resets (edits) the sent message with the data from original (the data what this was constructed)
          */
         this.reset = async () => { this.sent = await this.sent.edit(this.original); return this; };
-        this.updateValue = (name, data, keepOriginal = false) => this[name] = keepOriginal ? new MessageEmbed({ ...this[name], ...data }) : new MessageEmbed(data);
+        this.updateValue = (name, data, keepOriginal = false) => this[name] = keepOriginal ? new discord_js_1.MessageEmbed(Object.assign(Object.assign({}, this[name]), data)) : new discord_js_1.MessageEmbed(data);
         /**
          * Edits the original variable, and updates it to the data sent (keepOriginal decideds if it keeps original)
          * @param data A MessageEmbed or MessageEmbedOptions
@@ -46,6 +49,7 @@ export class MachinaMessage {
         else
             return this; };
         this.msg = msg;
-        this.current = useDefault ? new MessageEmbed({ ...(customDefault || this.default)(this.msg), ...data }) : new MessageEmbed(data);
+        this.current = useDefault ? new discord_js_1.MessageEmbed(Object.assign(Object.assign({}, (customDefault || this.default)(this.msg)), data)) : new discord_js_1.MessageEmbed(data);
     }
 }
+exports.MachinaMessage = MachinaMessage;
