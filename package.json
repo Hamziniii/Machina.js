@@ -2,12 +2,13 @@
   "name": "machina.ts",
   "version": "1.0.7",
   "description": "A wrapper for Discord.js to make your experience better and easier with typescript",
-  "main": "exports.ts",
+  "main": "js/exports.js",
   "directories": {
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc --outDir js --declaration true"
   },
   "keywords": [
     "discord.js"
@@ -20,6 +21,7 @@
     "@types/word-wrap": "^1.2.1",
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
+    "typescript": "^4.0.2",
     "word-wrap": "^1.2.3"
   },
   "type": "module"
