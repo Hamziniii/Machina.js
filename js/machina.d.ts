@@ -71,7 +71,7 @@ export declare class Machina {
      * @param checkPrefix should it check for the given prefix of the bot (false if you want custom prefixes)
      * @param check a function that returns true or null for a pass. A fail will exit this function, a pass will continue.
      */
-    evaluateMsg(msg: Message, checkPrefix?: boolean, check?: () => boolean | null): MachinaResponse<MachinaFunction | MachinaFunction[]>;
+    evaluateMsg(msg: Message, checkPrefix?: boolean, check?: Function): MachinaResponse<MachinaFunction | MachinaFunction[]>;
     /**
      * Gets the arguments out of the content
      * @param content The content of the message in which you want to extract the

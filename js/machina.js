@@ -146,9 +146,11 @@ class Machina {
             return { value: null, reason: "msg does not include the set prefix" };
         if (checkPrefix && !msg.content.startsWith(this.PREFIX))
             return { value: null, reason: "msg does not start with correct prefix" };
-        let c = check();
-        if (typeof check == "undefined" || c === false)
-            return { value: undefined, reason: "didnt pass given check", extra: check };
+        if (check && typeof check == "function") {
+            let c = check();
+            if (typeof check == "undefined" || c === false)
+                return { value: undefined, reason: "didnt pass given check", extra: check };
+        }
         const content = Machina.subCommandMiddleware(msg.content.substring(this.PREFIX.length));
         let reasons = [];
         let commands = this.commands.filter(mF => mF.monikers.includes(content.split(" ")[0]));
