@@ -5,9 +5,13 @@
         "lib": ["ES2015", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020", "DOM"],
         "target": "ES2019",
         "moduleResolution": "Node",
-        "module": "CommonJS",
+        "module": "ES2020",
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
-    }
+        "forceConsistentCasingInFileNames": true,
+    }, 
+    "exclude": [
+        "examples",
+        "js"
+    ]
 }

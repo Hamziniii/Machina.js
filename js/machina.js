@@ -1,18 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Machina = void 0;
-const discord_js_1 = require("discord.js");
-const machinaUtility_1 = require("./helper/machinaUtility");
-const machinaMessage_1 = require("./helper/machinaMessage");
-const word_wrap_1 = __importDefault(require("word-wrap"));
+import { Client } from "discord.js";
+import { arrify } from "./helper/machinaUtility";
+import { MachinaMessage } from "./helper/machinaMessage";
+import wrap from "word-wrap";
 /**
  * Discord bot wrapper
  * Calling order: Constructor, LoadCommands, Initialize, and done
  */
-class Machina {
+export class Machina {
     /**
      *
      * @param TOKEN Your bot's token (use env files)
@@ -21,7 +15,7 @@ class Machina {
      */
     constructor(TOKEN, PREFIX, AUTHOR) {
         /** The discord.js client */
-        this.client = new discord_js_1.Client();
+        this.client = new Client();
         /** The classes of all the commands */
         this.classes = [];
         /** The commands */
@@ -55,7 +49,7 @@ class Machina {
         let uuid = Math.floor(Math.random() * 1000 + 1);
         if (this.uuids.has(uuid))
             return this.createUUID(f);
-        f.monikers = [...machinaUtility_1.arrify(f.monikers), uuid.toString()];
+        f.monikers = [...arrify(f.monikers), uuid.toString()];
         f.containsUUID = true;
         this.uuids.add(uuid);
     }
@@ -102,15 +96,15 @@ class Machina {
         let returning = { value: true };
         let updateReturning = (value, reason, extra) => { returning.value = value; returning.reason = (returning.reason || "") + reason; returning.extra = returning.extra || extra; };
         let not = (thing) => allow ? !thing : thing;
-        if ((permissions === null || permissions === void 0 ? void 0 : permissions.users) && not(machinaUtility_1.arrify(permissions.users).includes(user.username)))
+        if ((permissions === null || permissions === void 0 ? void 0 : permissions.users) && not(arrify(permissions.users).includes(user.username)))
             updateReturning(false, "user, ");
-        if (((permissions === null || permissions === void 0 ? void 0 : permissions.channels) && msg.channel.type == "text") && not(machinaUtility_1.arrify(permissions.channels).includes(msg.channel.name)))
+        if (((permissions === null || permissions === void 0 ? void 0 : permissions.channels) && msg.channel.type == "text") && not(arrify(permissions.channels).includes(msg.channel.name)))
             updateReturning(false, "channel, ");
-        if (((permissions === null || permissions === void 0 ? void 0 : permissions.guilds) && msg.guild) && not(machinaUtility_1.arrify(permissions.guilds).includes(msg.guild.name)))
+        if (((permissions === null || permissions === void 0 ? void 0 : permissions.guilds) && msg.guild) && not(arrify(permissions.guilds).includes(msg.guild.name)))
             updateReturning(false, "guild, ");
         if (((permissions === null || permissions === void 0 ? void 0 : permissions.roles) && msg.channel.type == "text") && !not(member.roles.cache.array().some(r => permissions.roles.includes(r.name))))
             updateReturning(false, "roles, ");
-        if (((permissions === null || permissions === void 0 ? void 0 : permissions.permissions) && msg.channel.type == "text") && not(userPermissions.toArray().some(_ => machinaUtility_1.arrify(permissions.permissions).includes(_))))
+        if (((permissions === null || permissions === void 0 ? void 0 : permissions.permissions) && msg.channel.type == "text") && not(userPermissions.toArray().some(_ => arrify(permissions.permissions).includes(_))))
             updateReturning(false, "permissions, ");
         if ((_a = returning.reason) === null || _a === void 0 ? void 0 : _a.includes(", "))
             returning.reason = returning.reason.substr(0, returning.reason.length - 2);
@@ -127,9 +121,9 @@ class Machina {
         let ydisallow = [];
         if (!command.permissions)
             return { value: true, reason: "no permissions required" };
-        if (((_a = command === null || command === void 0 ? void 0 : command.permissions) === null || _a === void 0 ? void 0 : _a.disallow) && !machinaUtility_1.arrify(command.permissions.disallow).some(dP => { let p = Machina.matchesPermissions(dP, false, msg); ydisallow.push(p.reason); return p.value; }))
+        if (((_a = command === null || command === void 0 ? void 0 : command.permissions) === null || _a === void 0 ? void 0 : _a.disallow) && !arrify(command.permissions.disallow).some(dP => { let p = Machina.matchesPermissions(dP, false, msg); ydisallow.push(p.reason); return p.value; }))
             return { value: false, reason: "blacklisted", extra: ydisallow.sort((a, b) => a.length - b.length).pop() };
-        if (((_b = command === null || command === void 0 ? void 0 : command.permissions) === null || _b === void 0 ? void 0 : _b.allow) && !machinaUtility_1.arrify(command.permissions.allow).some(dP => { let p = Machina.matchesPermissions(dP, true, msg); nallow.push(p.reason); return p.value; }))
+        if (((_b = command === null || command === void 0 ? void 0 : command.permissions) === null || _b === void 0 ? void 0 : _b.allow) && !arrify(command.permissions.allow).some(dP => { let p = Machina.matchesPermissions(dP, true, msg); nallow.push(p.reason); return p.value; }))
             return { value: false, reason: "not whitelisted", extra: nallow.sort((a, b) => a.length - b.length).pop() };
         return { value: true, reason: "passed authorization" };
     }
@@ -170,7 +164,6 @@ class Machina {
             return { value: available, reason: "permission check passed multiple" };
     }
 }
-exports.Machina = Machina;
 /**
  * Gets the arguments out of the content
  * @param content The content of the message in which you want to extract the
@@ -178,8 +171,8 @@ exports.Machina = Machina;
  */
 Machina.getArgs = (content = "", separator = " ") => (content.substring(0, globalThis.PREFIX.length) == globalThis.PREFIX ? content.substring(globalThis.PREFIX.length) : content).split(" ").filter((v, i) => i > 0).join(" ").split(separator);
 /** Function to call if you have multiple command options */
-Machina.multipleCommands = (msg, commands) => new machinaMessage_1.MachinaMessage({ title: "Multiple Commands Available", description: word_wrap_1.default("Your query matches mutiple commands. Please use another moniker of the command, or use the number uuid. Listed below are the matched commands and their monikers:"), fields: machinaUtility_1.arrify(commands).map((v, i) => ({ name: "Command #" + (i + 1), value: machinaUtility_1.arrify(v.monikers).join(", ") })) }, msg).error();
+Machina.multipleCommands = (msg, commands) => new MachinaMessage({ title: "Multiple Commands Available", description: wrap("Your query matches mutiple commands. Please use another moniker of the command, or use the number uuid. Listed below are the matched commands and their monikers:"), fields: arrify(commands).map((v, i) => ({ name: "Command #" + (i + 1), value: arrify(v.monikers).join(", ") })) }, msg).error();
 /** Function to call if you have no command options*/
-Machina.noCommands = (msg, command) => new machinaMessage_1.MachinaMessage({ title: "No Commands Found", description: `Command ${command} was not found. Make sure you spelled it correctly and try again.` }, msg).error();
+Machina.noCommands = (msg, command) => new MachinaMessage({ title: "No Commands Found", description: `Command ${command} was not found. Make sure you spelled it correctly and try again.` }, msg).error();
 /** Fixes sub commands */
 Machina.subCommandMiddleware = (content, seperator = " ", index = 0) => content.split(" ").map((v, i, a) => v.includes(":") && i == index ? "" + v.replace(":", " ").replace(/:/g, seperator) + (!a[i + 1].includes(":") ? seperator == " | " ? " |" : "" : "") : v).join(" "); // CHANGE THE ":" TO CHANGE THE SUBCOMMAND SYMBOL
