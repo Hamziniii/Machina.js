@@ -38,7 +38,7 @@ exports.singleOut = (thing) => thing.length == 1 ? thing[0] : thing;
  */
 exports.extractClasses = (type, path, ignore = "") => {
     const returning = [];
-    const base = "../../" + (__dirname.includes("\node_modules\machina.ts\js\helper") ? "../../" : "") + (__dirname.includes("\node_modules\machina.ts\helper") ? "../" : "") + (type == "dir" ? path + "/" : "");
+    const base = "../../" + (__dirname.includes("\\node_modules\\machina.ts\\js\\helper") ? "../../" : "") + (__dirname.includes("\\node_modules\\machina.ts\\helper") ? "../" : "") + (type == "dir" ? path + "/" : "");
     switch (type) {
         case "file":
         case "files":
