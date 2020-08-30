@@ -1,5 +1,9 @@
 # Machina.ts
-My discord.js wrapper<br>
+This is a discord.js wrapper that speeds up your productivity. It allows you to focus on creating commands and logic rather than building up the foundation. 
+<br>
+<br>
+Get it here:
+<br>
 [npm](https://www.npmjs.com/package/machina.ts)    
 [github](https://github.com/Hamziniii/machina.ts)
 
