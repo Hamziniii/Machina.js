@@ -8,6 +8,7 @@ const discord_js_1 = require("discord.js");
 const machinaUtility_1 = require("./helper/machinaUtility");
 const machinaMessage_1 = require("./helper/machinaMessage");
 const word_wrap_1 = __importDefault(require("word-wrap"));
+// TODO ADD UNLOADING
 /**
  * Discord bot wrapper
  * Calling order: Constructor, LoadCommands, Initialize, and done
@@ -147,7 +148,7 @@ class Machina {
         if (checkPrefix && !msg.content.startsWith(this.PREFIX))
             return { value: null, reason: "msg does not start with correct prefix" };
         if (check && typeof check == "function") {
-            let c = check();
+            let c = check(msg);
             if (typeof check == "undefined" || c === false)
                 return { value: undefined, reason: "didnt pass given check", extra: check };
         }

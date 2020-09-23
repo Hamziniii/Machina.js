@@ -4,7 +4,7 @@ import { MachinaResponse } from "./helper/machinaResponse"
 import { arrify } from "./helper/machinaUtility"
 import { MachinaMessage } from "./helper/machinaMessage"
 import wrap from "word-wrap"
-
+// TODO ADD UNLOADING
 /**
  * Discord bot wrapper
  * Calling order: Constructor, LoadCommands, Initialize, and done
@@ -35,7 +35,7 @@ export class Machina {
      * @param PREFIX The bots prefix (ex: "# ")
      * @param AUTHOR Data about the author
      */
-    constructor(TOKEN: string, PREFIX: string, AUTHOR: {name: string, icon: string}) {
+    constructor(TOKEN: string, PREFIX: string, AUTHOR?: {name: string, icon: string}) {
         this.TOKEN = TOKEN
         this.PREFIX = PREFIX
         this.AUTHOR = AUTHOR
@@ -160,13 +160,13 @@ export class Machina {
      * @param checkPrefix should it check for the given prefix of the bot (false if you want custom prefixes)
      * @param check a function that returns true or null for a pass. A fail will exit this function, a pass will continue.
      */
-    evaluateMsg(msg: Message, checkPrefix = true, check?: Function): /** Value is the list of functions, reason is the reason why it works or fails, extra is just some extra info for debugging */MachinaResponse<MachinaFunction | MachinaFunction[]>{ // TODO custom prefixes per server, custom verification
+    evaluateMsg(msg: Message, checkPrefix = true, check?: (Message) => boolean): /** Value is the list of functions, reason is the reason why it works or fails, extra is just some extra info for debugging */MachinaResponse<MachinaFunction | MachinaFunction[]>{ // TODO custom prefixes per server, custom verification
         if(msg.author.username == this.client.user.username) return {value: null, reason: "msg author is the same as bot"}
         if(checkPrefix && !msg.content.includes(this.PREFIX)) return {value: null, reason: "msg does not include the set prefix"}
         if(checkPrefix && !msg.content.startsWith(this.PREFIX)) return {value: null, reason: "msg does not start with correct prefix"}
 
         if(check && typeof check == "function") {
-            let c = check()
+            let c = check(msg)
             if(typeof check == "undefined" || c === false)
                 return {value: undefined, reason: "didnt pass given check", extra: check}
         }
