@@ -35,28 +35,31 @@ export const machinaDecoratorInfo = (info: MachinaFunctionDefinition & Required<
 
     target[propertyKey] = async (...args) => { // Hash, Message
         const [Bot, msg, extra] = args as [Machina, Message, any?]
-        let c = Machina.subCommandMiddleware(msg?.content, info.separator, 1)
-        const _args = msg["params"] || Machina.getArgs(c, info.separator || " ").map(convertArgType).filter(exists) // TODO UPDATE SUBCOMMANDS TO THIS FORMAT -> # potato.splat instead of # potato splat
-        let subs, sub = null 
+        let c = null, _args = null, results = null
+        if(msg != null) {
+            c = Machina.subCommandMiddleware(msg?.content, info.separator, 1)
+            _args = msg["params"] || Machina.getArgs(c, info.separator || " ").map(convertArgType).filter(exists) // TODO UPDATE SUBCOMMANDS TO THIS FORMAT -> # potato.splat instead of # potato splat
+            let subs, sub = null 
 
-        if(info.subs && (subs = arrify(info.subs).filter(s => s.monikers.includes("" + _args[0]))).length > 0)
-            if(subs.length > 1)
-                Machina.multipleCommands(msg, subs)
-            else {
-                msg["_name"] = _args[0]
-                sub = subs[0]
-                _args.shift()
-                msg["params"] = _args 
-                return sub(Bot, msg)
+            if(info.subs && (subs = arrify(info.subs).filter(s => s.monikers.includes("" + _args[0]))).length > 0)
+                if(subs.length > 1)
+                    Machina.multipleCommands(msg, subs)
+                else {
+                    msg["_name"] = _args[0]
+                    sub = subs[0]
+                    _args.shift()
+                    msg["params"] = _args 
+                    return sub(Bot, msg)
+                }
+
+            // checks the arguments, errors out if it doesnt match
+            results = info.args ? checkArgsAgainstCriteria(_args, info.args) : null
+            if(info.strictArgs) // When it errors out
+            if(!results?.value || !exists(results)) {
+                await new MachinaMessage({title: `Parameter Error${msg["_name"] ? ": " + msg["_name"] : ""}`, description: wrap((_args.length == 0 ? "You did not input any arguments, please try again." : "Your arguments did not match any of the required arguments.") + " Arguments for this command are listed below."), fields: arrify(info.args).map(arrify).map((a, i) => ({name: "Option " + (i+1), value: arrify(a).map(_a => `${_a.name} - ${_a.type}`).join("\n"), inline: true}))}, msg).error()
+                
+                return console.log("this is the part where it would error to the user: " + propertyKey + " in " + target.name)
             }
-
-        // checks the arguments, errors out if it doesnt match
-        let results = info.args ? checkArgsAgainstCriteria(_args, info.args) : null
-        if(info.strictArgs) // When it errors out
-        if(!results?.value || !exists(results)) {
-            await new MachinaMessage({title: `Parameter Error${msg["_name"] ? ": " + msg["_name"] : ""}`, description: wrap((_args.length == 0 ? "You did not input any arguments, please try again." : "Your arguments did not match any of the required arguments.") + " Arguments for this command are listed below."), fields: arrify(info.args).map(arrify).map((a, i) => ({name: "Option " + (i+1), value: arrify(a).map(_a => `${_a.name} - ${_a.type}`).join("\n"), inline: true}))}, msg).error()
-            
-            return console.log("this is the part where it would error to the user: " + propertyKey + " in " + target.name)
         }
 
         _target({info, Bot, msg, args: _args, argsInfo: results, extra: extra || ({})} as MachinaFunctionParameters)
