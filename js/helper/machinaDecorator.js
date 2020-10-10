@@ -33,7 +33,7 @@ exports.machinaDecoratorInfo = (info) =>
         // IF YOU HAVE TO SINGLE ARGUMENTS WITH THE SAME TYPE, THIS ERROR WILL RUN. [arg1, arg2, arg3] have to be different types, or else the bot doesnt know which one is being called
         throw (`Error, you have two args or args[] that have the exact same types. The name of the args in question are: ${JSON.stringify(_duplicates.map(d => machinaUtility_1.arrify(info.args).filter(_ => machinaUtility_1.sameObj(machinaUtility_1.arrify(_).map(__ => __.type), d))).map(_ => _.map(__ => machinaUtility_1.arrify(__).map(___ => ___.name))).flat(1))} in ${propertyKey} of ${target.name}`);
     target[propertyKey] = async (...args) => {
-        const [Bot, msg] = args;
+        const [Bot, msg, extra] = args;
         let c = machina_1.Machina.subCommandMiddleware(msg === null || msg === void 0 ? void 0 : msg.content, info.separator, 1);
         const _args = msg["params"] || machina_1.Machina.getArgs(c, info.separator || " ").map(machinaUtility_1.convertArgType).filter(machinaUtility_1.exists); // TODO UPDATE SUBCOMMANDS TO THIS FORMAT -> # potato.splat instead of # potato splat
         let subs, sub = null;
@@ -54,7 +54,7 @@ exports.machinaDecoratorInfo = (info) =>
                 await new machinaMessage_1.MachinaMessage({ title: `Parameter Error${msg["_name"] ? ": " + msg["_name"] : ""}`, description: word_wrap_1.default((_args.length == 0 ? "You did not input any arguments, please try again." : "Your arguments did not match any of the required arguments.") + " Arguments for this command are listed below."), fields: machinaUtility_1.arrify(info.args).map(machinaUtility_1.arrify).map((a, i) => ({ name: "Option " + (i + 1), value: machinaUtility_1.arrify(a).map(_a => `${_a.name} - ${_a.type}`).join("\n"), inline: true })) }, msg).error();
                 return console.log("this is the part where it would error to the user: " + propertyKey + " in " + target.name);
             }
-        _target({ info, Bot, msg, args: _args, argsInfo: results });
+        _target({ info, Bot, msg, args: _args, argsInfo: results, extra: extra || ({}) });
     };
     Object.defineProperty(target[propertyKey], 'name', { value: propertyKey });
     info.class = info.class || target.name;

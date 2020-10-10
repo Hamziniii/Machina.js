@@ -34,7 +34,7 @@ export const machinaDecoratorInfo = (info: MachinaFunctionDefinition & Required<
         throw (`Error, you have two args or args[] that have the exact same types. The name of the args in question are: ${JSON.stringify(_duplicates.map(d => arrify(info.args).filter(_ => sameObj(arrify(_).map(__ => __.type), d))).map(_ => _.map(__ => arrify(__).map(___ => ___.name))).flat(1))} in ${propertyKey} of ${target.name}`)
 
     target[propertyKey] = async (...args) => { // Hash, Message
-        const [Bot, msg] = args as [Machina, Message]
+        const [Bot, msg, extra] = args as [Machina, Message, any?]
         let c = Machina.subCommandMiddleware(msg?.content, info.separator, 1)
         const _args = msg["params"] || Machina.getArgs(c, info.separator || " ").map(convertArgType).filter(exists) // TODO UPDATE SUBCOMMANDS TO THIS FORMAT -> # potato.splat instead of # potato splat
         let subs, sub = null 
@@ -59,7 +59,7 @@ export const machinaDecoratorInfo = (info: MachinaFunctionDefinition & Required<
             return console.log("this is the part where it would error to the user: " + propertyKey + " in " + target.name)
         }
 
-        _target({info, Bot, msg, args: _args, argsInfo: results} as MachinaFunctionParameters)
+        _target({info, Bot, msg, args: _args, argsInfo: results, extra: extra || ({})} as MachinaFunctionParameters)
     }
     
     Object.defineProperty(target[propertyKey], 'name', { value: propertyKey })
@@ -107,5 +107,7 @@ export interface MachinaFunctionParameters {
     /** The Users arguments */
     args: MachinaArgsTypes[],
     /** Information about the inputted argumets */
-    argsInfo: MachinaArgsInfo
+    argsInfo: MachinaArgsInfo,
+    /** Any extra stuff you want to pass into a Machina Function */
+    extra?: any
 }
