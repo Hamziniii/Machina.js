@@ -62,7 +62,7 @@ export const machinaDecoratorInfo = (info: MachinaFunctionDefinition & Required<
             }
         }
 
-        _target({info, Bot, msg, args: _args, argsInfo: results, extra: extra || ({})} as MachinaFunctionParameters)
+        _target({info, Bot, msg, args: _args, argsInfo: results, extra: extra || null} as MachinaFunctionParameters)
     }
     
     Object.defineProperty(target[propertyKey], 'name', { value: propertyKey })

@@ -57,7 +57,7 @@ exports.machinaDecoratorInfo = (info) =>
                     return console.log("this is the part where it would error to the user: " + propertyKey + " in " + target.name);
                 }
         }
-        _target({ info, Bot, msg, args: _args, argsInfo: results, extra: extra || ({}) });
+        _target({ info, Bot, msg, args: _args, argsInfo: results, extra: extra || null });
     };
     Object.defineProperty(target[propertyKey], 'name', { value: propertyKey });
     info.class = info.class || target.name;
